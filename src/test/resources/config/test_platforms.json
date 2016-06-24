@@ -1,0 +1,39 @@
+[
+    {
+        "name": "default",
+        "platforms": [
+            { "link": "desktop_windows#8_chrome" },
+            { "link": "desktop_windows#8_firefox" }
+        ]
+    },
+    {
+        "name": "ios",
+        "platforms": [
+            { "link": "iPhone Simulator_iOS#7.0_Safari",
+			  "capabilities":{
+                 "acceptSslCerts":"true"            
+               }            
+            }
+        ]
+    },
+    {
+        "name": "android",
+        "platforms": [
+            { "link": "Android_Android#4.4_Chrome" }
+        ]
+    },
+    {
+        "name": "androidnative",
+        "platforms": [        
+        {
+          "name":"platform2",
+          "capabilities":{
+            "deviceName":"Android Emulator",
+            "platformName":"Android",
+            "platformVersion":"4.4",
+            "app":"sauce-storage:ApiDemos-debug.apk"
+          }
+        }
+    	]
+    }
+]

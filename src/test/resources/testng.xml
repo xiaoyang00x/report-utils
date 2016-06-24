@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!-- 
+1) Parallel testing in SauceLabs
+data-provider-thread-count="3" thread-count="3"
+
+2) Seqencial testing for Appium local testing:
+data-provider-thread-count="1" thread-count="1"
+The data-provider-thread-count and thread-count should be 1 for Appium tests running in your local box.
+This will force the sequencial test execution. Appium has a limitation allowing only one session 
+at the given time.
+
+In general, it is recommended to set data-provider-thread-count and thread-count as 1 for 
+the local test execution.
+-->
+<suite name="UnitTestSuite" parallel="methods" data-provider-thread-count="1" thread-count="1">
+	<test name="UnitTest" preserve-order="true">
+		<packages>
+			<package name="com.intuit.tools.*"></package>
+		</packages>
+	</test>
+</suite>
