@@ -55,7 +55,7 @@ public class GroupingView implements View {
     @Override
     public String getContent() {
         try {
-            Template t = ve.getTemplate("/templates/ManagerViewTable.part.html");
+            Template t = ve.getTemplate("./templates/ManagerViewTable.part.html");
 
             StringWriter writer = new StringWriter();
             VelocityContext context = new VelocityContext();
