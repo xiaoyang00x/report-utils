@@ -87,4 +87,27 @@
 		</plugins>
 	</build>
 	
+	
+	<repositories>
+        <repository>
+            <id>JDB</id>
+            <name>H5AutomationNexus</name>
+            <url>http://localhost:8081/nexus/content/repositories/JDB</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+	
+	 <distributionManagement>
+        <repository>
+            <id>JDB</id>
+            <name>H5AutomationNexus</name>
+            <url>http://localhost:8081/nexus/content/repositories/JDB</url>
+        </repository>
+    </distributionManagement>
+	
 </project>
