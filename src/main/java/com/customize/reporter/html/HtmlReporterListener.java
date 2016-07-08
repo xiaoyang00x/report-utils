@@ -194,7 +194,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
                 // for each status // method, create the html
                 if (passed.size() > 0) {
-                    Template t = ve.getTemplate("./templates/method.part.html");
+                    Template t = ve.getTemplate("/templates/method.part.html");
                     VelocityContext context = new VelocityContext();
                     context.put("status", "passed");
                     context.put("method", passed.get(0).getMethod());
@@ -209,7 +209,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                 }
 
                 if (failed.size() > 0) {
-                    Template t = ve.getTemplate("./templates/method.part.html");
+                    Template t = ve.getTemplate("/templates/method.part.html");
                     VelocityContext context = new VelocityContext();
                     context.put("status", "failed");
                     context.put("method", failed.get(0).getMethod());
@@ -223,7 +223,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                     fileSystemWriter.write(writer.toString());
                 }
                 if (skipped.size() > 0) {
-                    Template t = ve.getTemplate("./templates/method.part.html");
+                    Template t = ve.getTemplate("/templates/method.part.html");
                     VelocityContext context = new VelocityContext();
                     context.put("status", "skipped");
                     context.put("method", skipped.get(0).getMethod());
@@ -389,7 +389,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
             File f = new File(outdir + "/html/", method.getId() + ".html");
             Writer fileSystemWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(f), "UTF8")));
-            Template t = ve.getTemplate("./templates/method.part.html");
+            Template t = ve.getTemplate("/templates/method.part.html");
 
             Set<ITestResult> passed = ctx.getPassedTests().getResults(method);
 
@@ -440,7 +440,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
     private List<Line> createSummary(List<ISuite> suites) {
         try {
 
-            Template t = ve.getTemplate("./templates/summaryTabs.part.html");
+            Template t = ve.getTemplate("/templates/summaryTabs.part.html");
             VelocityContext context = new VelocityContext();
 
             List<GroupingView> views = new ArrayList<GroupingView>();
@@ -506,7 +506,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
     protected void startHtml(PrintWriter out) {
         try {
 
-        	Template t = ve.getTemplate("./templates/header.part.html");
+        	Template t = ve.getTemplate("/templates/header.part.html");
         	VelocityContext context = new VelocityContext();
         	StringBuilder output = new StringBuilder();
         	context.put("configSummary", output.toString());
@@ -521,7 +521,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
     private void endHtml(PrintWriter out) {
         try {
-            Template t = ve.getTemplate("./templates/footer.part.html");
+            Template t = ve.getTemplate("/templates/footer.part.html");
             VelocityContext context = new VelocityContext();
             StringWriter writer = new StringWriter();
             t.merge(context, writer);
