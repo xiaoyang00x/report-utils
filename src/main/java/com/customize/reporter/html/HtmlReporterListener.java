@@ -89,6 +89,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
     @Override
     public void generateReport(List<XmlSuite> xmlSuite, List<ISuite> suites, String outputDir) {
+
         this.outputDir = outputDir;
         ReportDataGenerator.initReportData(suites);
 
@@ -119,7 +120,8 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
             while (keys.hasMoreElements()) {
                 String key = (String) keys.nextElement();
                 String fileName = resourceListToCopy.getProperty(key);
-                writeStreamToFile(localClassLoader.getResourceAsStream("templates/" + fileName), fileName, outputFolder);
+                writeStreamToFile(localClassLoader.getResourceAsStream("templates/" + fileName), fileName,
+                        outputFolder);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -153,8 +155,8 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
     private void createContent(Line line) {
         try {
             File f = new File(outputDir + "/html/", line.getId() + ".html");
-            Writer fileSystemWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(f), "UTF8")));
+            Writer fileSystemWriter = new PrintWriter(
+                    new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF8")));
 
             Map<ITestNGMethod, List<ITestResult>> resultByMethod = new HashMap<ITestNGMethod, List<ITestResult>>();
 
@@ -387,8 +389,8 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
     private void createMethod(ITestContext ctx, ITestNGMethod method, String outdir) {
         try {
             File f = new File(outdir + "/html/", method.getId() + ".html");
-            Writer fileSystemWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(f), "UTF8")));
+            Writer fileSystemWriter = new PrintWriter(
+                    new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF8")));
             Template t = ve.getTemplate("/templates/method.part.html");
 
             Set<ITestResult> passed = ctx.getPassedTests().getResults(method);
@@ -445,8 +447,8 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
             List<GroupingView> views = new ArrayList<GroupingView>();
 
-            GroupingView view = new GroupingView("managerView", "per class", "Overview organized per class", ve,
-                    suites, new ByClassSplitter());
+            GroupingView view = new GroupingView("managerView", "per class", "Overview organized per class", ve, suites,
+                    new ByClassSplitter());
             views.add(view);
 
             GroupingView view2 = new GroupingView("managerView2", "per package", "Overview organized per package", ve,
@@ -456,8 +458,8 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
             GroupingView view3 = new GroupingView("managerView3", "per method", "Overview organized per method", ve,
                     suites, new ByMethodSplitter());
             views.add(view3);
-            GroupingView view9 = new GroupingView("managerView9", "per testName", "Overview organized per testName",
-                    ve, suites, new ByTestNameSplitter());
+            GroupingView view9 = new GroupingView("managerView9", "per testName", "Overview organized per testName", ve,
+                    suites, new ByTestNameSplitter());
             views.add(view9);
             /*********************************/
 
@@ -490,30 +492,30 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
     }
 
     private boolean filterConfigEntry(String key, Object value) {
-    	if(key.startsWith("restartWebDriver")) {
-    		return true;
-    	}
-    	if(key.startsWith("defaultBaseUrl")) {
-    		return true;
-    	}
-    	if(key.startsWith("app.")) {
-    		return true;
-    	}
-    	return false;
+        if (key.startsWith("restartWebDriver")) {
+            return true;
+        }
+        if (key.startsWith("defaultBaseUrl")) {
+            return true;
+        }
+        if (key.startsWith("app.")) {
+            return true;
+        }
+        return false;
     }
-    
+
     /** Starts HTML stream */
     protected void startHtml(PrintWriter out) {
         try {
 
-        	Template t = ve.getTemplate("/templates/header.part.html");
-        	VelocityContext context = new VelocityContext();
-        	StringBuilder output = new StringBuilder();
-        	context.put("configSummary", output.toString());
+            Template t = ve.getTemplate("/templates/header.part.html");
+            VelocityContext context = new VelocityContext();
+            StringBuilder output = new StringBuilder();
+            context.put("configSummary", output.toString());
             StringWriter writer = new StringWriter();
             t.merge(context, writer);
             out.write(writer.toString());
- 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -570,29 +572,29 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
         String testCaseInfo = String.format("[%s] %s#%s: %s - %s", Thread.currentThread().getId(), className,
                 methodName, testName, testDescription);
         Reporter.log(testCaseInfo, true);
-        //For below code, please customize account to the application under testing.
+        // For below code, please customize account to the application under testing.
 
-//        Object testClass = method.getTestMethod().getInstance();
-//        Field[] fields = method.getTestMethod().getConstructorOrMethod().getMethod().getDeclaringClass()
-//                .getDeclaredFields();
-//        for (Field f : fields) {
-//            f.setAccessible(true);
-//            try {
-//                String clsName = ff.getClass().getCanonicalName();
-//                Reporter.log("**************** CompanyCreationBean **************************\n");
-//                if (clsName.endsWith("CompanyCreationBean")) {
-//                    CompanyCreationBean companyCreationBean = ((CompanyCreationBean) ff);
-//                    String accountInfo = String.valueOf("User Account: %s/%s,%s_%s", companyCreationBean.getUserName(),
-//                            companyCreationBean.getPassword(), companyCreationBean.getLanguage(),
-//                            companyCreationBean.getRegion());
-//                    Reporter.log(accountInfo);
-//                    for (CompanyBean company : companyCreationBean.getCompanies()) {
-//                        Reporter.log("Company Info: " + company.getCompanyName() + "," + company.getId());
-//                    }
-//                }
-//            } catch (Exception e) {
-//            }
-//        }
+        // Object testClass = method.getTestMethod().getInstance();
+        // Field[] fields = method.getTestMethod().getConstructorOrMethod().getMethod().getDeclaringClass()
+        // .getDeclaredFields();
+        // for (Field f : fields) {
+        // f.setAccessible(true);
+        // try {
+        // String clsName = ff.getClass().getCanonicalName();
+        // Reporter.log("**************** CompanyCreationBean **************************\n");
+        // if (clsName.endsWith("CompanyCreationBean")) {
+        // CompanyCreationBean companyCreationBean = ((CompanyCreationBean) ff);
+        // String accountInfo = String.valueOf("User Account: %s/%s,%s_%s", companyCreationBean.getUserName(),
+        // companyCreationBean.getPassword(), companyCreationBean.getLanguage(),
+        // companyCreationBean.getRegion());
+        // Reporter.log(accountInfo);
+        // for (CompanyBean company : companyCreationBean.getCompanies()) {
+        // Reporter.log("Company Info: " + company.getCompanyName() + "," + company.getId());
+        // }
+        // }
+        // } catch (Exception e) {
+        // }
+        // }
     }
 
     @Override

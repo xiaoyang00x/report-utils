@@ -43,7 +43,31 @@ public class WebReporter extends AbstractReporter {
         return log;
     }
 
-    public static void log(WebDriver driver,String message, boolean takeScreenshot, boolean saveSrc) {
+    protected AbstractLog createLog(boolean takeScreenshot, boolean saveSrc, boolean appiumDirver) {
+        String href = null;
+        /**
+         * Changed html file extension to txt
+         */
+        if (!(getSaver() instanceof SaverFileSystem)) {
+            throw new RuntimeException("NI");
+        }
+        if (saveSrc) {
+            if (getDriver() != null) {
+                PageContents source = new PageContents(getBaseFileName(), getBaseFileName());
+                getSaver().saveSources(source);
+            }
+            href = "sources" + File.separator + getBaseFileName() + ".source.txt";
+        }
+        WebLog log = (WebLog) getLog();
+        log.setHref(href);
+        for (LogAction eachAction : getActionList()) {
+            eachAction.perform();
+        }
+
+        return log;
+    }
+
+    public static void log(WebDriver driver, String message, boolean takeScreenshot, boolean saveSrc) {
         WebReporter reporter = new WebReporter();
         WebLog currentLog = new WebLog();
         reporter.setDriver(driver);
@@ -53,4 +77,14 @@ public class WebReporter extends AbstractReporter {
         reporter.setLog(currentLog);
         reporter.generateLog(takeScreenshot, saveSrc);
     }
+
+    public static void log(WebDriver driver, boolean takeScreenshot, boolean saveSrc, boolean appiumDriver) {
+        WebReporter reporter = new WebReporter();
+        WebLog currentLog = new WebLog();
+        reporter.setDriver(driver);
+        currentLog.setType("PHONE");
+        reporter.setLog(currentLog);
+        reporter.generateLog(takeScreenshot, saveSrc, appiumDriver, currentLog);
+    }
+
 }
