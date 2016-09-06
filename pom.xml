@@ -9,9 +9,9 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>com.lendingtreasure</groupId>
-		<artifactId>H5AutoFreamWorkLibrary</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<groupId>com.Common</groupId>
+		<artifactId>FrameWork</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 
