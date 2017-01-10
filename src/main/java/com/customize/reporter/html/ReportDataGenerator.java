@@ -9,6 +9,8 @@ import org.testng.ISuiteResult;
 import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
 
+import video.VideoReord;
+
 /**
  * A Utility class which has method to create and associate a unique random number for each TestNG test method. A html
  * file will be created for each TestNG test method with this random number, which contains details about that specific
@@ -35,8 +37,9 @@ public final class ReportDataGenerator {
                 for (ISuiteResult r2 : r.values()) {
                     ITestContext tc = r2.getTestContext();
                     ITestNGMethod[] methods = tc.getAllTestMethods();
-                    for (ITestNGMethod method : methods) {
-                        method.setId(UUID.randomUUID().toString());
+                    for (int i = 0; i < methods.length; i++) {
+                        methods[i].setId(UUID.randomUUID().toString());
+                        methods[i].setDescription(VideoReord.getInstance().getVideoPath().get(i));
                     }
                 }
             }

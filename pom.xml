@@ -15,6 +15,15 @@
 	</parent>
 
 
+	<dependencies>
+		<dependency>
+			<groupId>com.Common</groupId>
+			<artifactId>VideoRecord</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+
 	<build>
 		<plugins>
 			<plugin>

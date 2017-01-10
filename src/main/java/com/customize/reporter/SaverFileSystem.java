@@ -105,5 +105,6 @@ public class SaverFileSystem implements DataSaver {
 		(new File(outputFolder, "sources")).mkdir();
 		(new File(outputFolder, "html")).mkdir();
 		(new File(outputFolder, "screenshots")).mkdir();
+		(new File(outputFolder, "video")).mkdir();
 	}
 }

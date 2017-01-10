@@ -177,6 +177,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                 List<ITestResult> failed = new ArrayList<ITestResult>();
                 List<ITestResult> skipped = new ArrayList<ITestResult>();
                 List<ITestResult> results = method.getValue();
+
                 for (ITestResult result : results) {
                     switch (result.getStatus()) {
                     case ITestResult.SUCCESS:
@@ -263,7 +264,6 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
     private String getContent(ITestResult result) {
         StringBuilder contentBuffer = new StringBuilder();
-
         contentBuffer.append(String.format("Total duration of this instance run : %02d sec. ",
                 (result.getEndMillis() - result.getStartMillis()) / 1000));
         Object[] parameters = result.getParameters();
@@ -326,9 +326,10 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                         + "\" width=\"200\" height=\"200\" /> </a>");
                 contentBuffer.append("</li>");
             }
-
             contentBuffer.append("</ul>");
-
+            contentBuffer.append(
+                    "<video src="+result.getMethod().getDescription()+" controls=\'controls\' width=\'900\' height=\'600\'>");
+            contentBuffer.append("</video>");
             contentBuffer.append("</div>");
             contentBuffer.append("</div>");
 
