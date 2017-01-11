@@ -1,3 +1,4 @@
+
 package com.customize.reporter.html;
 
 import java.io.BufferedWriter;
@@ -21,6 +22,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import org.ConfigUtil.ConfigUtil;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -327,9 +329,9 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                 contentBuffer.append("</li>");
             }
             contentBuffer.append("</ul>");
-            contentBuffer.append(
-                    "<video src="+result.getMethod().getDescription()+" controls=\'controls\' width=\'900\' height=\'600\'>");
-            contentBuffer.append("</video>");
+            if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true"))
+                contentBuffer.append("<video src=" + result.getMethod().getDescription()
+                        + " controls=\'controls\' width=\'900\' height=\'600\'></video>");
             contentBuffer.append("</div>");
             contentBuffer.append("</div>");
 
@@ -555,13 +557,6 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        // Test testMethod = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class);
-        // if (testMethod != null) {
-        // String testName = testMethod.testName();
-        // if (StringUtils.isNotEmpty(testName)) {
-        // testResult.setAttribute(TEST_NAME_KEY, testName);
-        // }
-        // }
         if (!method.isTestMethod())
             return;
         Test TestMethod = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class);
@@ -573,29 +568,6 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
         String testCaseInfo = String.format("[%s] %s#%s: %s - %s", Thread.currentThread().getId(), className,
                 methodName, testName, testDescription);
         Reporter.log(testCaseInfo, true);
-        // For below code, please customize account to the application under testing.
-
-        // Object testClass = method.getTestMethod().getInstance();
-        // Field[] fields = method.getTestMethod().getConstructorOrMethod().getMethod().getDeclaringClass()
-        // .getDeclaredFields();
-        // for (Field f : fields) {
-        // f.setAccessible(true);
-        // try {
-        // String clsName = ff.getClass().getCanonicalName();
-        // Reporter.log("**************** CompanyCreationBean **************************\n");
-        // if (clsName.endsWith("CompanyCreationBean")) {
-        // CompanyCreationBean companyCreationBean = ((CompanyCreationBean) ff);
-        // String accountInfo = String.valueOf("User Account: %s/%s,%s_%s", companyCreationBean.getUserName(),
-        // companyCreationBean.getPassword(), companyCreationBean.getLanguage(),
-        // companyCreationBean.getRegion());
-        // Reporter.log(accountInfo);
-        // for (CompanyBean company : companyCreationBean.getCompanies()) {
-        // Reporter.log("Company Info: " + company.getCompanyName() + "," + company.getId());
-        // }
-        // }
-        // } catch (Exception e) {
-        // }
-        // }
     }
 
     @Override

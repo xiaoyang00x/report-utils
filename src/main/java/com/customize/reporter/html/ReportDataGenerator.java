@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.ConfigUtil.ConfigUtil;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
@@ -39,7 +40,8 @@ public final class ReportDataGenerator {
                     ITestNGMethod[] methods = tc.getAllTestMethods();
                     for (int i = 0; i < methods.length; i++) {
                         methods[i].setId(UUID.randomUUID().toString());
-                        methods[i].setDescription(VideoReord.getInstance().getVideoPath().get(i));
+                        if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true"))
+                            methods[i].setDescription(VideoReord.getInstance().getVideoPath().get(i));
                     }
                 }
             }
