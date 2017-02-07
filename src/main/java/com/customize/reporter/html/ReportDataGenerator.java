@@ -38,10 +38,15 @@ public final class ReportDataGenerator {
                 for (ISuiteResult r2 : r.values()) {
                     ITestContext tc = r2.getTestContext();
                     ITestNGMethod[] methods = tc.getAllTestMethods();
+                    System.out.println("methods length is : ++++++++++" + methods.length);
                     for (int i = 0; i < methods.length; i++) {
+                        System.out.println("Method i name is : -----------" + methods[i].getMethodName());
                         methods[i].setId(UUID.randomUUID().toString());
-                        if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true"))
-                            methods[i].setDescription(VideoReord.getInstance().getVideoPath().get(i));
+                        if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true")) {
+                            System.out.println("methods[i].getMethodName() is : --------" + methods[i].getMethodName());
+                            methods[i].setDescription(
+                                    VideoReord.getInstance().getVideoPath().get(methods[i].getMethodName()));
+                        }
                     }
                 }
             }

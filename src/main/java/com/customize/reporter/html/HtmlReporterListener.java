@@ -330,7 +330,7 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
             }
             contentBuffer.append("</ul>");
             if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true"))
-                contentBuffer.append("<video src=" + result.getMethod().getDescription()
+                contentBuffer.append("<video src=" + Transfor4Video(result.getMethod().getDescription())
                         + " controls=\'controls\' width=\'900\' height=\'600\'></video>");
             contentBuffer.append("</div>");
             contentBuffer.append("</div>");
@@ -586,6 +586,18 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+    }
+
+    /**
+     * 
+     * @param a
+     * @return
+     */
+    public static String Transfor4Video(String a) {
+        String jobName = a.split("target")[0].split("/")[a.split("target")[0].split("/").length - 1];
+        String hostName = "http://" + ConfigUtil.getConfigUtil().getConfigFileContent("JenkinsIP") + ":8080/job/";
+        String finalName = hostName + jobName + "/ws/target" + a.split("target")[1];
+        return finalName;
     }
 
 }
