@@ -40,8 +40,10 @@ public final class ReportDataGenerator {
                     ITestNGMethod[] methods = tc.getAllTestMethods();
                     for (int i = 0; i < methods.length; i++) {
                         methods[i].setId(UUID.randomUUID().toString());
-                        if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true"))
-                            methods[i].setDescription(VideoReord.getInstance().getVideoPath().get(i));
+                        if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true")) {
+                            methods[i].setDescription(
+                                    VideoReord.getInstance().getVideoPath().get(methods[i].getMethodName()));
+                        }
                     }
                 }
             }
