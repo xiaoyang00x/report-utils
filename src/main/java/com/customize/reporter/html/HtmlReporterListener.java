@@ -329,8 +329,12 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                 contentBuffer.append("</li>");
             }
             contentBuffer.append("</ul>");
-            if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true"))
+            if (ConfigUtil.getConfigUtil().getConfigFileContent("isVideo").equals("true")
+                    && ConfigUtil.getConfigUtil().getConfigFileContent("isLocalVideo").equals("false"))
                 contentBuffer.append("<video src=" + Transfor4Video(result.getMethod().getDescription())
+                        + " controls=\'controls\' width=\'900\' height=\'600\'></video>");
+            else
+                contentBuffer.append("<video src=" + result.getMethod().getDescription()
                         + " controls=\'controls\' width=\'900\' height=\'600\'></video>");
             contentBuffer.append("</div>");
             contentBuffer.append("</div>");
@@ -595,7 +599,8 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
      */
     public static String Transfor4Video(String a) {
         String jobName = a.split("target")[0].split("/")[a.split("target")[0].split("/").length - 1];
-        String hostName = "http://" + ConfigUtil.getConfigUtil().getConfigFileContent("JenkinsIP") + ":8080/job/";
+        String hostName = "http://" + ConfigUtil.getConfigUtil().getConfigFileContent("JenkinsIP") + ":"
+                + ConfigUtil.getConfigUtil().getConfigFileContent("JenkinsPort") + "/job/";
         String finalName = hostName + jobName + "/ws/target" + a.split("target")[1];
         return finalName;
     }
