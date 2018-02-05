@@ -333,9 +333,6 @@ public class HtmlReporterListener implements IReporter, IInvokedMethodListener, 
                     && ConfigUtil.getConfigUtil().getConfigFileContent("isLocalVideo").equals("false"))
                 contentBuffer.append("<video src=" + Transfor4Video(result.getMethod().getDescription())
                         + " controls=\'controls\' width=\'900\' height=\'600\'></video>");
-            else
-                contentBuffer.append("<video src=" + result.getMethod().getDescription()
-                        + " controls=\'controls\' width=\'900\' height=\'600\'></video>");
             contentBuffer.append("</div>");
             contentBuffer.append("</div>");
 
